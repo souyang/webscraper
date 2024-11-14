@@ -21,23 +21,23 @@ export abstract class BaseScraper {
     //     });
     // }
     
-        private handleError(error: any) {
-            console.error('Web scraping failed:', error);
-            if (error.name === 'TimeoutError') {
-                return { statusCode: HttpStatus.REQUEST_TIMEOUT, message: 'Request timed out while scraping' };
-            }
-            throw new InternalServerErrorException({
-                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-                message: error.message,
-            });
+    private handleError(error: any) {
+        console.error('Web scraping failed:', error);
+        if (error.name === 'TimeoutError') {
+            return { statusCode: HttpStatus.REQUEST_TIMEOUT, message: 'Request timed out while scraping' };
         }
-    
-        private formatSuccessResponse(data: any) {
-            if (data.length === 0) {
-                return { statusCode: HttpStatus.NOT_FOUND, message: 'No products found', data: [] };
-            }
-            return { statusCode: HttpStatus.OK, message: 'Products retrieved successfully', data };
+        throw new InternalServerErrorException({
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: error.message,
+        });
+    }
+
+    private formatSuccessResponse(data: any) {
+        if (data.length === 0) {
+            return { statusCode: HttpStatus.NOT_FOUND, message: 'No products found', data: [] };
         }
+        return { statusCode: HttpStatus.OK, message: 'Products retrieved successfully', data };
+    }
 
     // Step 1: Setup for browser and page initialization
     async initBrowser(): Promise<Page> {
@@ -79,7 +79,7 @@ export abstract class BaseScraper {
             // The search button selector is defined in each subclass (e.g., '#nav-search-submit-button' for Amazon)
             // Use Promise.all to wait for both the product list to load and the click action to complete
             await Promise.all([
-                page.waitForNavigation({ waitUntil: 'domcontentloaded' }), // Wait until the product list is rendered
+                page.waitForNavigation({ waitUntil: 'networkidle0' }), // Wait until the product list is rendered
                 page.click(this.getSearchButtonSelector()),          // Trigger the search
             ]);
     
