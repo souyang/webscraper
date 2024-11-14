@@ -40,7 +40,7 @@ export class WalmartScraper extends BaseScraper implements EcommerceScraper {
                 const url = item.querySelector('a')?.href || '';
                 const price = item.querySelector('div[data-automation-id="product-price"] > span')?.textContent?.trim() || '';
                 const title = item.querySelector('span[data-automation-id="product-title"]')?.textContent?.trim() || '';
-                const imageUrl = item.querySelector('img[data-testid="productTileImage"]').getAttribute("src")?.trim() || '';
+                const imageUrl = item.querySelector('img[data-testid="productTileImage"]')?.getAttribute("src")?.trim() || '';
                 return {url, title, price, imageUrl};
             });
         });
