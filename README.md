@@ -1,99 +1,115 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Product Scraper with Puppeteer
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Welcome to the **Product Scraper with Puppeteer** repository! 🚀 This project is a streamlined solution for extracting product details, images, prices, and more from e-commerce sites using [Puppeteer](https://github.com/puppeteer/puppeteer).
 
-## Description
+## Table of Contents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Product Scraper with Puppeteer](#product-scraper-with-puppeteer)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Examples](#examples)
+    - [Basic Example](#basic-example)
+    - [Selective Scraping](#selective-scraping)
+  - [Project Structure](#project-structure)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-## Project setup
+## Overview
 
-```bash
-$ pnpm install
+This project is designed to help developers scrape specific product information, such as **URLs**, **titles**, **prices**, and **images** directly from online stores. Built with Puppeteer, it’s efficient, headless (or headful, if needed), and robust against anti-scraping measures.
+
+## Features
+
+- 🏷️ **Extract Product Details**: Scrapes product titles, URLs, and prices from specified pages.
+- 🖼️ **Image Extraction**: Retrieves high-quality product images for visual references.
+- ⏲️ **Headless Mode**: Runs in headless mode by default, with an option for debugging.
+- 📈 **Highly Configurable**: Easily customize selectors and parameters for different sites.
+- 🛠️ **Error Handling**: Handles missing elements gracefully with fallback values.
+
+## Prerequisites
+
+- **Node.js** v12+ and **pnpm** installed on your machine.
+
+## Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/product-scraper-puppeteer.git
+   cd product-scraper-puppeteer
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   pnpm install
+   ```
+
+3. **Configure Environment**:
+   - Add a `.env` file in the project root
+   ```config
+   SBR_WS_ENDPOINT=wss://brd-customer-hl_41f4f3fc-zone-scraping_browser1:7511gld2k3ek@brd.superproxy.io:9222
+   ```
+
+## Usage
+
+1. **Run the Scraper**:
+   - By default, the scraper runs in headless mode:
+     ```bash
+     pnpm start:dev
+     ```
+
+2. **Customize Selectors**:
+   - Modify selectors in the `extractProductDetails` function in `scraper.js` to adapt to different e-commerce sites or element changes.
+
+## Examples
+
+### Basic Example
+To scrape product details such as URLs, titles, prices, and images, you can use:
+
+```javascript
+const products = await scraper.extractProductDetails(page);
+console.log(products);
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+Expected output format:
+```json
+[
+  {
+    "url": "https://www.example.com/product/123",
+    "title": "Product Title",
+    "price": "$19.99",
+    "imageUrl": "https://www.example.com/images/product.jpg"
+  }
+]
 ```
 
-## Run tests
+### Selective Scraping
+You can customize `getSearchButtonSelector` and `extractProductDetails` in `scraper.js` for tailored data extraction.
 
-```bash
-# unit tests
-$ pnpm run test
+## Project Structure
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+```
+product-scraper-puppeteer/
+├── src/
+│   ├── index.js              # Main script to run the scraper
+│   ├── scraper.js            # Core scraping functions
+│   └── utils.js              # Utility functions (e.g., for error handling)
+├── .env                      # Environment variables
+├── package.json
+└── README.md                 # Project documentation
 ```
 
-## Deployment
+## Contributing
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+We welcome contributions! Feel free to submit issues, fork the repository, and make pull requests. See our [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+Thank you for checking out this project! 🌟 Don't forget to leave a star if you found this helpful!
