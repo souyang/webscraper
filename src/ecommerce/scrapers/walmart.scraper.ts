@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BaseScraper } from './base.scraper';
 import { Page } from 'puppeteer-core';
-import { EcommerceScraper } from '../ecommerce.interface';
+import { EcommerceScraper } from '../interfaces/ecommerce.interface';
 
 @Injectable()
 export class WalmartScraper extends BaseScraper implements EcommerceScraper {

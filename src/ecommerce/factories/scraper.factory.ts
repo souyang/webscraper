@@ -1,7 +1,7 @@
 // scraper.factory.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { AmazonScraper } from '../scrapers/amazon.scraper';
-import { EcommerceScraper } from '../ecommerce.interface';
+import { EcommerceScraper } from '../interfaces/ecommerce.interface';
 import { TemuScraper } from '../scrapers/temu.scraper';
 import { WalmartScraper } from '../scrapers/walmart.scraper';
 
